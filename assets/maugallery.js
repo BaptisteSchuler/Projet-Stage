@@ -119,6 +119,8 @@
         .attr("src", element.attr("src"));
       $(`#${lightboxId}`).modal("toggle");
     },
+
+
     prevImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -145,12 +147,15 @@
           }
         });
       }
-      let index = 0,
+      // let index =0 changement
+      let index = -1,
         next = null;
 
       $(imagesCollection).each(function(i) {
         if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i ;
+          index = i === 0 ? imagesCollection.lenght - 1 : i - 1 ; 
+          // changement ici pour le bug d'affichage 
+          
         }
       });
       next =
@@ -158,6 +163,8 @@
         imagesCollection[imagesCollection.length - 1];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
+
+
     nextImage() {
       let activeImage = null;
       $("img.gallery-item").each(function() {
@@ -184,17 +191,19 @@
           }
         });
       }
-      let index = 0,
+      let index = -1,
         next = null;
 
       $(imagesCollection).each(function(i) {
         if ($(activeImage).attr("src") === $(this).attr("src")) {
-          index = i;
+          index = i === imagesCollection.length -1 ? 0 : i + 1;
         }
       });
       next = imagesCollection[index] || imagesCollection[0];
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
+
+
     createLightBox(gallery, lightboxId, navigation) {
       gallery.append(`<div class="modal fade" id="${
         lightboxId ? lightboxId : "galleryLightbox"
@@ -240,8 +249,8 @@
         return;
       }
       $(".active-tag").removeClass("active active-tag");
-      $(this).addClass("active-tag");
-
+      $(this).addClass("active active-tag");
+// changement ici, ajoute de active dans active tag, correction de bug nav
       var tag = $(this).data("images-toggle");
 
       $(".gallery-item").each(function() {
@@ -261,3 +270,21 @@
     }
   };
 })(jQuery);
+
+
+
+$(document).ready(function() {
+  $('.gallery').mauGallery({
+      columns: {
+          xs: 1,
+          sm: 2,
+          md: 3,
+          lg: 3,
+          xl: 3
+      },
+      lightBox: true,
+      lightboxId: 'myAwesomeLightbox',
+      showTags: true,
+      tagsPosition: 'top'
+  });
+});

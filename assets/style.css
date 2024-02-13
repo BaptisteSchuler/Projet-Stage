@@ -101,13 +101,23 @@ nav a {
 	justify-content: center;
 }
 .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-	color: #fff;
+	color: #000;
 	background-color: #BEB45A;
 	border-radius:0 ;
+	cursor: pointer;
 }
 .nav-pills .nav-link {
-	color: #000
+	color: #000;
+	cursor: pointer;
+	transition: 0.2s;
 }
+
+.nav-pills .nav-link:hover{
+	border-radius: 0%;
+	color: #000;
+}
+
+
 .item-column {
 	position: relative;
 	margin-bottom: 0 !important;
